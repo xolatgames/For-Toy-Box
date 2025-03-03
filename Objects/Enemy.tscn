@@ -15,6 +15,7 @@ size = Vector2(24, 24)
 [node name="Enemy" type="CharacterBody2D" node_paths=PackedStringArray("free_space_checker_right", "free_space_checker_up", "free_space_checker_left", "free_space_checker_down")]
 z_index = 1
 script = ExtResource("1_4sww3")
+score = 800
 speed = 100.0
 free_space_checker_right = NodePath("FreeSpaceCheckerRight")
 free_space_checker_up = NodePath("FreeSpaceCheckerUp")

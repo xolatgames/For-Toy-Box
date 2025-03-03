@@ -1,5 +1,7 @@
 class_name Player extends Movable
 
+var invincibility: bool = false
+
 
 func _physics_process(delta: float) -> void:
 	var grid = global_position.snapped(grid_scale)

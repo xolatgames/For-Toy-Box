@@ -26,8 +26,9 @@ var treat_order: TreatClass.Type
 var balloon_order: BalloonClass.Type
 
 signal add_score
+signal add_score_at_bonus_time
 signal lost_live
-signal add_time
+signal start_bonus
 
 
 func _ready() -> void:
@@ -83,14 +84,7 @@ func _respawn_enemies() -> void:
 	enemies_objects.clear()
 	
 	for i in range(enemies_amount):
-		var pos: Vector2
-		while true:
-			pos = _random_pos_on_map()
-			if tile_map.get_cell_source_id(pos) == -1 and pos.distance_to(player.position) > 128:
-				break
-		var _enemy = _spawn_enemy(pos * grid_scale)
-		_enemy.lost_live.connect(_lost_live)
-		enemies_objects.append(_enemy)
+		_respawn_enemy()
 
 func _random_pos_on_map() -> Vector2i:
 	var pos: Vector2i = Vector2i(randi_range(0, field_size.x), randi_range(0, field_size.y))
@@ -139,11 +133,11 @@ func _treat_collect(order: TreatClass.Type, score: int) -> void:
 		_clear_busy_tiles()
 
 func _balloon_collect(order: BalloonClass.Type) -> void:
+	add_score_at_bonus_time.emit(300)
 	if order == balloon_order:
-		add_score.emit(300)
 		balloon_order += 1
 		if balloon_order >= BalloonClass.Type.size():
-			add_time.emit(20)
+			start_bonus.emit()
 			balloon_order = 0
 			_respawn_balloons()
 			_clear_busy_tiles()
@@ -152,5 +146,20 @@ func _balloon_collect(order: BalloonClass.Type) -> void:
 		_respawn_balloons()
 		_clear_busy_tiles()
 
+func _add_score(score: int) -> void:
+	add_score.emit(score)
+
 func _lost_live() -> void:
 	lost_live.emit()
+
+func _respawn_enemy() -> void:
+	var pos: Vector2
+	while true:
+		pos = _random_pos_on_map()
+		if tile_map.get_cell_source_id(pos) == -1 and pos.distance_to(player.position) > 128:
+			break
+	var _enemy = _spawn_enemy(pos * grid_scale)
+	_enemy.add_score.connect(_add_score)
+	_enemy.lost_live.connect(_lost_live)
+	_enemy.respawn.connect(_respawn_enemy)
+	enemies_objects.append(_enemy)

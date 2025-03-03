@@ -18,7 +18,7 @@ got = false
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vdddf"]
 bg_color = Color(0, 0, 0, 1)
 
-[node name="UI" type="Control" node_paths=PackedStringArray("score_label", "lives_label", "time_label", "main")]
+[node name="UI" type="Control" node_paths=PackedStringArray("score_label", "lives_label", "bonus_label", "main")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -27,14 +27,14 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_4mdme")
 extra_lives = Array[ExtResource("2_7v4v7")]([SubResource("Resource_51mgp"), SubResource("Resource_d485b")])
+bonus_time = 20
 score_txt = "Score: "
 lives_txt = "Lives: "
-time_txt = "Time: "
+bonus_txt = "Bonus: "
 lives = 3
-time = 60
 score_label = NodePath("GameStats/HBoxContainer/Score")
 lives_label = NodePath("GameStats/HBoxContainer/Lives")
-time_label = NodePath("GameStats/HBoxContainer/Time")
+bonus_label = NodePath("GameStats/HBoxContainer/Bonus")
 main = NodePath("SubViewportContainer/SubViewport/Main")
 game_over = ExtResource("2_dh1qo")
 
@@ -67,7 +67,7 @@ layout_mode = 2
 size_flags_vertical = 1
 vertical_alignment = 1
 
-[node name="Time" type="Label" parent="GameStats/HBoxContainer"]
+[node name="Bonus" type="Label" parent="GameStats/HBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 1
 vertical_alignment = 1
@@ -89,6 +89,7 @@ render_target_update_mode = 4
 autostart = true
 
 [connection signal="add_score" from="SubViewportContainer/SubViewport/Main" to="." method="_on_add_score"]
-[connection signal="add_time" from="SubViewportContainer/SubViewport/Main" to="." method="_on_add_time"]
+[connection signal="add_score_at_bonus_time" from="SubViewportContainer/SubViewport/Main" to="." method="_on_add_score_at_bonus_time"]
 [connection signal="lost_live" from="SubViewportContainer/SubViewport/Main" to="." method="_on_lost_live"]
+[connection signal="start_bonus" from="SubViewportContainer/SubViewport/Main" to="." method="_on_start_bonus"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

@@ -5,7 +5,12 @@ enum Direction { Right, Up, Left, Down }
 var next_direction_delay: int = 0
 var _direction: Direction
 
+@export_category("Characteristics")
+@export var score: int
+
+signal add_score
 signal lost_live
+signal respawn
 
 
 func _physics_process(delta: float) -> void:
@@ -41,5 +46,10 @@ func _physics_process(delta: float) -> void:
 
 func _on_contact_area_body_entered(body: Node2D) -> void:
 	if body is Player:
-		lost_live.emit()
-		queue_free()
+		if body.invincibility:
+			add_score.emit(score)
+			queue_free()
+		else:
+			lost_live.emit()
+			queue_free()
+		respawn.emit()
