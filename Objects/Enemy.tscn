@@ -1,0 +1,67 @@
+[gd_scene load_steps=6 format=3 uid="uid://sge5efwb2aud"]
+
+[ext_resource type="Texture2D" uid="uid://jx6atuhpq21o" path="res://Placeholders/Enemy.svg" id="1_2qa5s"]
+[ext_resource type="Script" path="res://Scripts/Enemy.gd" id="1_4sww3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xt4n4"]
+size = Vector2(24, 24)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vfibh"]
+size = Vector2(24, 24)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kj4c3"]
+size = Vector2(24, 24)
+
+[node name="Enemy" type="CharacterBody2D" node_paths=PackedStringArray("free_space_checker_right", "free_space_checker_up", "free_space_checker_left", "free_space_checker_down")]
+z_index = 1
+script = ExtResource("1_4sww3")
+speed = 100.0
+free_space_checker_right = NodePath("FreeSpaceCheckerRight")
+free_space_checker_up = NodePath("FreeSpaceCheckerUp")
+free_space_checker_left = NodePath("FreeSpaceCheckerLeft")
+free_space_checker_down = NodePath("FreeSpaceCheckerDown")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_2qa5s")
+offset = Vector2(16, 16)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(16, 16)
+shape = SubResource("RectangleShape2D_xt4n4")
+disabled = true
+
+[node name="ContactArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ContactArea"]
+position = Vector2(16, 16)
+shape = SubResource("RectangleShape2D_vfibh")
+
+[node name="FreeSpaceCheckerRight" type="Area2D" parent="."]
+position = Vector2(32, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FreeSpaceCheckerRight"]
+position = Vector2(16, 16)
+shape = SubResource("RectangleShape2D_kj4c3")
+
+[node name="FreeSpaceCheckerUp" type="Area2D" parent="."]
+position = Vector2(0, -32)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FreeSpaceCheckerUp"]
+position = Vector2(16, 16)
+shape = SubResource("RectangleShape2D_kj4c3")
+
+[node name="FreeSpaceCheckerLeft" type="Area2D" parent="."]
+position = Vector2(-32, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FreeSpaceCheckerLeft"]
+position = Vector2(16, 16)
+shape = SubResource("RectangleShape2D_kj4c3")
+
+[node name="FreeSpaceCheckerDown" type="Area2D" parent="."]
+position = Vector2(0, 32)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FreeSpaceCheckerDown"]
+position = Vector2(16, 16)
+shape = SubResource("RectangleShape2D_kj4c3")
+
+[connection signal="body_entered" from="ContactArea" to="." method="_on_contact_area_body_entered"]

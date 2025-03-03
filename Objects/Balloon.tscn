@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://7744y3132qfo"]
+
+[ext_resource type="Script" path="res://Scripts/Balloon.gd" id="1_7ipcm"]
+[ext_resource type="Texture2D" uid="uid://co1wwpylrijv5" path="res://Placeholders/Balloons/S.svg" id="8_3yf2m"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_t2wmc"]
+size = Vector2(24, 24)
+
+[node name="Balloon" type="Area2D" node_paths=PackedStringArray("sprite")]
+script = ExtResource("1_7ipcm")
+sprite = NodePath("Sprite2D")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("8_3yf2m")
+offset = Vector2(16, 16)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(16, 16)
+shape = SubResource("RectangleShape2D_t2wmc")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

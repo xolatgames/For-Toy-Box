@@ -1,0 +1,55 @@
+[gd_scene load_steps=5 format=3 uid="uid://dx76k7t35fjv"]
+
+[ext_resource type="Script" path="res://Scripts/Player.gd" id="1_kixwu"]
+[ext_resource type="Texture2D" uid="uid://ckic34b2ee3am" path="res://Placeholders/Player.svg" id="2_yn62w"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0ebfu"]
+size = Vector2(24, 24)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lxc3y"]
+size = Vector2(24, 24)
+
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("free_space_checker_right", "free_space_checker_up", "free_space_checker_left", "free_space_checker_down")]
+z_index = 2
+position = Vector2(288, 288)
+script = ExtResource("1_kixwu")
+free_space_checker_right = NodePath("FreeSpaceCheckerRight")
+free_space_checker_up = NodePath("FreeSpaceCheckerUp")
+free_space_checker_left = NodePath("FreeSpaceCheckerLeft")
+free_space_checker_down = NodePath("FreeSpaceCheckerDown")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_yn62w")
+offset = Vector2(16, 16)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(16, 16)
+shape = SubResource("RectangleShape2D_0ebfu")
+
+[node name="FreeSpaceCheckerRight" type="Area2D" parent="."]
+position = Vector2(32, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FreeSpaceCheckerRight"]
+position = Vector2(16, 16)
+shape = SubResource("RectangleShape2D_lxc3y")
+
+[node name="FreeSpaceCheckerUp" type="Area2D" parent="."]
+position = Vector2(0, -32)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FreeSpaceCheckerUp"]
+position = Vector2(16, 16)
+shape = SubResource("RectangleShape2D_lxc3y")
+
+[node name="FreeSpaceCheckerLeft" type="Area2D" parent="."]
+position = Vector2(-32, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FreeSpaceCheckerLeft"]
+position = Vector2(16, 16)
+shape = SubResource("RectangleShape2D_lxc3y")
+
+[node name="FreeSpaceCheckerDown" type="Area2D" parent="."]
+position = Vector2(0, 32)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FreeSpaceCheckerDown"]
+position = Vector2(16, 16)
+shape = SubResource("RectangleShape2D_lxc3y")

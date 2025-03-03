@@ -1,0 +1,92 @@
+[gd_scene load_steps=29 format=4 uid="uid://4mahlirpx7nk"]
+
+[ext_resource type="TileSet" uid="uid://bg4s50f25g5h3" path="res://Resources/TileSet.tres" id="1_0iytc"]
+[ext_resource type="Script" path="res://Scripts/MainLoop.gd" id="1_sciut"]
+[ext_resource type="Script" path="res://Scripts/Classes/TreatClass.gd" id="2_4si67"]
+[ext_resource type="PackedScene" uid="uid://dx76k7t35fjv" path="res://Objects/Player.tscn" id="2_gs2cs"]
+[ext_resource type="Texture2D" uid="uid://fdc45svaxum7" path="res://Placeholders/Treats/Candy.svg" id="3_ecekp"]
+[ext_resource type="Script" path="res://Scripts/Classes/BalloonClass.gd" id="3_kf3w4"]
+[ext_resource type="Texture2D" uid="uid://du7k7v5acskp5" path="res://Placeholders/Treats/CandyCane.svg" id="4_2hsw2"]
+[ext_resource type="Texture2D" uid="uid://d4i2vt6xgbow" path="res://Placeholders/Treats/ChocolateBar.svg" id="5_e4vkm"]
+[ext_resource type="Texture2D" uid="uid://djtblyjejrjvq" path="res://Placeholders/Treats/IceCream.svg" id="6_kh55s"]
+[ext_resource type="Texture2D" uid="uid://rnt5v0lxjtc7" path="res://Placeholders/Treats/Cake.svg" id="7_2k6fe"]
+[ext_resource type="Texture2D" uid="uid://co1wwpylrijv5" path="res://Placeholders/Balloons/S.svg" id="9_2o66c"]
+[ext_resource type="Texture2D" uid="uid://ckfx43d7ueefr" path="res://Placeholders/Balloons/U.svg" id="10_ktggn"]
+[ext_resource type="Texture2D" uid="uid://ceioaedv3hytt" path="res://Placeholders/Balloons/P.svg" id="11_5no6o"]
+[ext_resource type="Texture2D" uid="uid://uyee7yhvwwdx" path="res://Placeholders/Balloons/E.svg" id="12_uhjgt"]
+[ext_resource type="Texture2D" uid="uid://btj4a43ocdnw6" path="res://Placeholders/Balloons/R.svg" id="13_smvbk"]
+[ext_resource type="PackedScene" uid="uid://cy68q6v167coj" path="res://Objects/Treat.tscn" id="14_nsa77"]
+[ext_resource type="PackedScene" uid="uid://7744y3132qfo" path="res://Objects/Balloon.tscn" id="15_iyh4c"]
+[ext_resource type="PackedScene" uid="uid://sge5efwb2aud" path="res://Objects/Enemy.tscn" id="16_8kwv0"]
+
+[sub_resource type="Resource" id="Resource_dcy2m"]
+script = ExtResource("2_4si67")
+type = 0
+sprite = ExtResource("3_ecekp")
+score = 500
+
+[sub_resource type="Resource" id="Resource_lflsf"]
+script = ExtResource("2_4si67")
+type = 1
+sprite = ExtResource("4_2hsw2")
+score = 1000
+
+[sub_resource type="Resource" id="Resource_o4s1p"]
+script = ExtResource("2_4si67")
+type = 2
+sprite = ExtResource("5_e4vkm")
+score = 2000
+
+[sub_resource type="Resource" id="Resource_yil5x"]
+script = ExtResource("2_4si67")
+type = 3
+sprite = ExtResource("6_kh55s")
+score = 3000
+
+[sub_resource type="Resource" id="Resource_j7xqx"]
+script = ExtResource("2_4si67")
+type = 4
+sprite = ExtResource("7_2k6fe")
+score = 5000
+
+[sub_resource type="Resource" id="Resource_cldu1"]
+script = ExtResource("3_kf3w4")
+type = 0
+sprite = ExtResource("9_2o66c")
+
+[sub_resource type="Resource" id="Resource_7hmut"]
+script = ExtResource("3_kf3w4")
+type = 1
+sprite = ExtResource("10_ktggn")
+
+[sub_resource type="Resource" id="Resource_04kyj"]
+script = ExtResource("3_kf3w4")
+type = 2
+sprite = ExtResource("11_5no6o")
+
+[sub_resource type="Resource" id="Resource_nsqrf"]
+script = ExtResource("3_kf3w4")
+type = 3
+sprite = ExtResource("12_uhjgt")
+
+[sub_resource type="Resource" id="Resource_mwpdy"]
+script = ExtResource("3_kf3w4")
+type = 4
+sprite = ExtResource("13_smvbk")
+
+[node name="Main" type="Node2D" node_paths=PackedStringArray("player", "tile_map")]
+script = ExtResource("1_sciut")
+enemies_amount = 10
+treats = Array[ExtResource("2_4si67")]([SubResource("Resource_dcy2m"), SubResource("Resource_lflsf"), SubResource("Resource_o4s1p"), SubResource("Resource_yil5x"), SubResource("Resource_j7xqx")])
+ballons = Array[ExtResource("3_kf3w4")]([SubResource("Resource_cldu1"), SubResource("Resource_7hmut"), SubResource("Resource_04kyj"), SubResource("Resource_nsqrf"), SubResource("Resource_mwpdy")])
+treat = ExtResource("14_nsa77")
+ballon = ExtResource("15_iyh4c")
+enemy = ExtResource("16_8kwv0")
+player = NodePath("Player")
+tile_map = NodePath("TileMap")
+
+[node name="TileMap" type="TileMapLayer" parent="."]
+tile_map_data = PackedByteArray("AAAAAAAAAQAAAAAAAAAAAAEAAQAAAAAAAAAAAAIAAQAAAAAAAAAAAAMAAQAAAAAAAAAAAAUAAQAAAAAAAAAAAAYAAQAAAAAAAAAAAAcAAQAAAAAAAAAAAAgAAQAAAAAAAAAAAAoAAQAAAAAAAAAAAAsAAQAAAAAAAAAAAAwAAQAAAAAAAAAAAA0AAQAAAAAAAAAAAA8AAQAAAAAAAAAAABAAAQAAAAAAAAAAABEAAQAAAAAAAAAAABIAAQAAAAAAAAASAAAAAQAAAAAAAAARAAAAAQAAAAAAAAAQAAAAAQAAAAAAAAAPAAAAAQAAAAAAAAANAAAAAQAAAAAAAAAMAAAAAQAAAAAAAAALAAAAAQAAAAAAAAAIAAAAAQAAAAAAAAAHAAAAAQAAAAAAAAAGAAAAAQAAAAAAAAAFAAAAAQAAAAAAAAADAAAAAQAAAAAAAAACAAAAAQAAAAAAAAABAAAAAQAAAAAAAAAKAAAAAQAAAAAAAAABABIAAQAAAAAAAAACABIAAQAAAAAAAAADABIAAQAAAAAAAAAFABIAAQAAAAAAAAAGABIAAQAAAAAAAAAHABIAAQAAAAAAAAAIABIAAQAAAAAAAAAKABIAAQAAAAAAAAALABIAAQAAAAAAAAAMABIAAQAAAAAAAAANABIAAQAAAAAAAAAPABIAAQAAAAAAAAAQABIAAQAAAAAAAAARABIAAQAAAAAAAAASABIAAQAAAAAAAAASABEAAQAAAAAAAAASABAAAQAAAAAAAAASAA8AAQAAAAAAAAASAA0AAQAAAAAAAAASAAwAAQAAAAAAAAASAAsAAQAAAAAAAAASAAoAAQAAAAAAAAASAAgAAQAAAAAAAAASAAcAAQAAAAAAAAASAAYAAQAAAAAAAAASAAUAAQAAAAAAAAASAAMAAQAAAAAAAAASAAIAAQAAAAAAAAASAAEAAQAAAAAAAAAHAAsAAQAAAAAAAAAGAAsAAQAAAAAAAAADAAwAAQAAAAAAAAADAAsAAQAAAAAAAAADAA4AAQAAAAAAAAADAA8AAQAAAAAAAAAEAA8AAQAAAAAAAAAGAA8AAQAAAAAAAAAHAA4AAQAAAAAAAAAHAAwAAQAAAAAAAAAHAA8AAQAAAAAAAAAEAAsAAQAAAAAAAAAGAAcAAQAAAAAAAAAHAAYAAQAAAAAAAAAHAAQAAQAAAAAAAAAHAAMAAQAAAAAAAAAGAAMAAQAAAAAAAAAFAAMAAQAAAAAAAAAEAAMAAQAAAAAAAAADAAMAAQAAAAAAAAADAAYAAQAAAAAAAAADAAcAAQAAAAAAAAAEAAcAAQAAAAAAAAADAAQAAQAAAAAAAAAHAAcAAQAAAAAAAAALAAQAAQAAAAAAAAALAAMAAQAAAAAAAAAMAAMAAQAAAAAAAAAOAAMAAQAAAAAAAAAPAAMAAQAAAAAAAAAPAAQAAQAAAAAAAAAPAAcAAQAAAAAAAAAOAAcAAQAAAAAAAAAPAAYAAQAAAAAAAAALAAUAAQAAAAAAAAALAAYAAQAAAAAAAAALAAcAAQAAAAAAAAAMAAcAAQAAAAAAAAAOAAsAAQAAAAAAAAAPAAsAAQAAAAAAAAAPAAwAAQAAAAAAAAAPAA4AAQAAAAAAAAAPAA8AAQAAAAAAAAAOAA8AAQAAAAAAAAANAA8AAQAAAAAAAAAMAA8AAQAAAAAAAAALAA8AAQAAAAAAAAALAA4AAQAAAAAAAAALAAwAAQAAAAAAAAALAAsAAQAAAAAAAAAMAAsAAQAAAAAAAAAHAA0AAQAAAAAAAAA=")
+tile_set = ExtResource("1_0iytc")
+
+[node name="Player" parent="." instance=ExtResource("2_gs2cs")]
